@@ -18,8 +18,8 @@ int posmin_vector(vector<int>& vec) {
 }
 
 int main() {
-    //freopen("./input.txt", "r", stdin);
-    //freopen("./output.txt", "w", stdout);
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
 
     int t, n;
     cin >> t;
@@ -38,7 +38,7 @@ int main() {
                     cols[k] = -1;
                 } else if (grid[j][k] == '.') {
                     if (rows[j] != -1) ++rows[j];
-                    if (cols[j] != -1) ++cols[j];
+                    if (cols[k] != -1) ++cols[k];
                 }
             }
         }
@@ -51,10 +51,14 @@ int main() {
         int min_rows = posmin_vector(rows);
         int min_cols = posmin_vector(cols);
         int min_to_win = min(min_cols, min_rows);
+        
+
         int count = 0;
         for (int j=0; j<n; j++) {
             if (rows[j] == min_to_win) {
-                grid[j] = string('X', n);
+                if (min_to_win == 1)
+                    grid[j] = string('X', n);
+                
                 ++count;
             }
         }
@@ -71,7 +75,12 @@ int main() {
             }
         }
 
-        cout << "Case #" << i << ": " << min_to_win << ' ' << count << endl;
+        cout << "Case #" << i << ": " << min_to_win << ' ';
+        cout << count << endl;
+        //if (min_to_win == 1)
+        //    cout << max(eqmin(rows, min_to_win), eqmin(cols, min_to_win)) << endl;
+        //else
+        //    cout << count << endl;
     }
     return 0;
 }
